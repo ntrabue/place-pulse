@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import "@/index.css"
+import "../src/index.css"
 
 export const metadata: Metadata = {
   title: "Place Pulse - Find Businesses Without Websites",

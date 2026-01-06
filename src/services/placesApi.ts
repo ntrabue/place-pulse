@@ -1,5 +1,5 @@
-import type { Business, SearchResult } from "@/types/business"
-import type { SearchParams } from "@/components/search-form"
+import type { Business, SearchResult } from "../types/business"
+import type { SearchParams } from "../components/search-form"
 
 // Use relative path since API routes are on the same server
 const API_BASE_URL = ''
