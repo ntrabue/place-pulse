@@ -90,6 +90,7 @@ export function LocationForm() {
                   state: location.state,
                 }));
               }}
+              autoFocus
             />
           </Field>
 

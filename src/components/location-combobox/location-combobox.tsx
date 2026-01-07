@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Command,
   CommandEmpty,
@@ -19,13 +19,20 @@ import { CurrentLocationToggle } from "../current-location-toggle";
 type LocationComboboxProps = {
   value: { city: string; state: string };
   onChange: (location: { city: string; state: string }) => void;
+  autoFocus?: boolean;
 }
 
-export function LocationCombobox({ value, onChange }: LocationComboboxProps) {
+export function LocationCombobox({ value, onChange, autoFocus }: LocationComboboxProps) {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const displayValue = value.city && value.state ? `${value.city}, ${value.state}` : "";
+
+  useEffect(() => {
+    if (autoFocus) {
+      setOpen(true);
+    }
+  }, [autoFocus]);
 
   // Debounce input value
   const debouncedInput = useDebounce(inputValue, 300);
@@ -61,7 +68,7 @@ export function LocationCombobox({ value, onChange }: LocationComboboxProps) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full justify-between font-normal"
+          className="w-full justify-between font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
           <span className="truncate">
             {displayValue || "Select location"}
@@ -77,6 +84,7 @@ export function LocationCombobox({ value, onChange }: LocationComboboxProps) {
               value={inputValue}
               onValueChange={setInputValue}
               className="border-0"
+              autoFocus={autoFocus}
             />
             <CurrentLocationToggle
               onLocationDetected={(location) => {
