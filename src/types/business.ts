@@ -1,4 +1,4 @@
-export interface Business {
+export type Business = {
   placeId: string
   name: string
   address: string
@@ -20,14 +20,14 @@ export interface Business {
   }
 }
 
-export interface Photo {
+export type Photo = {
   photoReference: string
   height: number
   width: number
   url?: string
 }
 
-export interface SearchResult {
+export type SearchResult = {
   businesses: Business[]
   totalResults: number
   nextPageToken?: string
