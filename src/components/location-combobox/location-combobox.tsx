@@ -14,6 +14,7 @@ import { Button } from "../button";
 import { ChevronsUpDown, MapPin } from "lucide-react";
 import { useAutocomplete, parseCityState } from "../../lib/use-autocomplete";
 import { useDebounce } from "../../lib/use-debounce";
+import { CurrentLocationToggle } from "../current-location-toggle";
 
 type LocationComboboxProps = {
   value: { city: string; state: string };
@@ -70,11 +71,22 @@ export function LocationCombobox({ value, onChange }: LocationComboboxProps) {
       </PopoverTrigger>
       <PopoverContent className="w-[400px] p-0" align="start">
         <Command shouldFilter={false}>
-          <CommandInput
-            placeholder="Type city and state..."
-            value={inputValue}
-            onValueChange={setInputValue}
-          />
+          <div className="flex items-center gap-1 border-b px-1">
+            <CommandInput
+              placeholder="Type city and state..."
+              value={inputValue}
+              onValueChange={setInputValue}
+              className="border-0"
+            />
+            <CurrentLocationToggle
+              onLocationDetected={(location) => {
+                onChange(location);
+                setInputValue("");
+                setOpen(false);
+              }}
+              size="sm"
+            />
+          </div>
           <CommandList>
             {isLoading ? (
               <div className="py-6 text-center text-sm">Loading...</div>

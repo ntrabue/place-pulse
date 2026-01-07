@@ -16,6 +16,8 @@ import { Label } from "../label";
 import { LocationCombobox } from "../location-combobox";
 import { Select } from "../select";
 import { Button } from "../button";
+import { ChevronDown } from "lucide-react";
+import { CurrentLocationToggle } from "../current-location-toggle";
 
 export function LocationForm() {
   const globalState = useSearchState();
@@ -56,53 +58,69 @@ export function LocationForm() {
   const isValid = local.city && local.state;
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger>{triggerText}</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Location Settings</DialogTitle>
-        </DialogHeader>
-        <Field>
-          <Label>Location</Label>
-          <LocationCombobox
-            value={{ city: local.city, state: local.state }}
-            onChange={(location) => {
-              setLocal((current) => ({
-                ...current,
-                city: location.city,
-                state: location.state,
-              }));
-            }}
-          />
-        </Field>
+    <div className="flex items-center">
+      <CurrentLocationToggle
+        onLocationDetected={(location) => {
+          dispatch({
+            type: "SET_LOCATION",
+            payload: {
+              city: location.city,
+              state: location.state,
+              radius: globalState.radius,
+            },
+          });
+        }}
+      />
+      <Dialog open={open} onOpenChange={handleOpenChange}>
+        <DialogTrigger className="flex gap-2">
+          {triggerText} <ChevronDown />
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Location Settings</DialogTitle>
+          </DialogHeader>
+          <Field>
+            <Label>Location</Label>
+            <LocationCombobox
+              value={{ city: local.city, state: local.state }}
+              onChange={(location) => {
+                setLocal((current) => ({
+                  ...current,
+                  city: location.city,
+                  state: location.state,
+                }));
+              }}
+            />
+          </Field>
 
-        <Field>
-          <Label htmlFor="radius">Search Radius</Label>
-          <Select
-            id="radius"
-            value={local.radius.toString()}
-            onChange={(e) =>
-              setLocal((current) => ({
-                ...current,
-                radius: Number(e.target.value),
-              }))
-            }
-          >
-            <option value="5">5 miles</option>
-            <option value="15">15 miles</option>
-            <option value="30">30 miles</option>
-          </Select>
-        </Field>
+          <Field>
+            <Label htmlFor="radius">Search Radius</Label>
+            <Select
+              id="radius"
+              value={local.radius.toString()}
+              onChange={(e) =>
+                setLocal((current) => ({
+                  ...current,
+                  radius: Number(e.target.value),
+                }))
+              }
+            >
+              <option value="5">5 miles</option>
+              <option value="15">15 miles</option>
+              <option value="30">30 miles</option>
+            </Select>
+          </Field>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => setOpen(false)}>
-            Cancel
-          </Button>
-          <Button onClick={handleSave} disabled={!isValid}>
-            Save
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleSave} disabled={!isValid}>
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
