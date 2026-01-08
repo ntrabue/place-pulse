@@ -19,25 +19,18 @@ export function CardsView({ businesses }: CardsViewProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       {businesses.map((business) => (
-        <Card key={business.placeId} className="overflow-hidden">
+        <Card key={business.placeId} className="overflow-hidden flex flex-col">
           {business.photos && business.photos.length > 0 ? (
-            <div
-              className="w-full overflow-hidden bg-muted"
-              style={{ maxHeight: "250px" }}
-            >
+            <div className="w-full h-[200px] bg-muted flex items-center justify-center">
               <img
                 src={business.photos[0].url}
                 alt={business.name}
-                className="w-full h-full object-cover"
-                style={{ maxHeight: "250px" }}
+                className="w-full h-full object-contain"
                 loading="lazy"
               />
             </div>
           ) : (
-            <div
-              className="w-full bg-muted flex items-center justify-center"
-              style={{ height: "200px" }}
-            >
+            <div className="w-full h-[200px] bg-muted flex items-center justify-center">
               <ImageIcon className="w-12 h-12 text-muted-foreground" />
             </div>
           )}
@@ -51,7 +44,7 @@ export function CardsView({ businesses }: CardsViewProps) {
             )}
           </CardHeader>
 
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-3 flex flex-col flex-grow">
             {business.rating && (
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -69,18 +62,20 @@ export function CardsView({ businesses }: CardsViewProps) {
               <span>{business.address}</span>
             </div>
 
-            {business.phoneNumber && (
-              <a
-                href={`tel:${business.phoneNumber}`}
-                className="flex items-center gap-2 text-sm text-primary hover:underline"
-              >
-                <Phone className="w-4 h-4" />
-                {business.phoneNumber}
-              </a>
-            )}
+            <div className="min-h-[28px]">
+              {business.phoneNumber && (
+                <a
+                  href={`tel:${business.phoneNumber}`}
+                  className="flex items-center gap-2 text-sm text-primary hover:underline"
+                >
+                  <Phone className="w-4 h-4" />
+                  {business.phoneNumber}
+                </a>
+              )}
+            </div>
 
-            {business.openingHours?.openNow !== undefined && (
-              <div className="text-sm">
+            <div className="text-sm min-h-[20px]">
+              {business.openingHours?.openNow !== undefined && (
                 <span
                   className={
                     business.openingHours.openNow
@@ -90,10 +85,10 @@ export function CardsView({ businesses }: CardsViewProps) {
                 >
                   {business.openingHours.openNow ? "Open now" : "Closed"}
                 </span>
-              </div>
-            )}
+              )}
+            </div>
 
-            <div className="pt-2">
+            <div className="pt-2 mt-auto">
               {business.website ? (
                 <Button asChild size="sm" variant="outline" className="w-full">
                   <a

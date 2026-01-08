@@ -14,8 +14,10 @@ export type SearchState = {
 };
 
 type SearchAction =
-  | { type: "SET_LOCATION"; payload: { city: string; state: string; radius: number } }
-  | { type: "SET_RADIUS"; payload: number }
+  | {
+      type: "SET_LOCATION";
+      payload: { city: string; state: string; radius: number };
+    }
   | { type: "SET_INDUSTRY"; payload: string }
   | { type: "RESET" };
 
@@ -35,8 +37,6 @@ function searchReducer(state: SearchState, action: SearchAction): SearchState {
         state: action.payload.state,
         radius: action.payload.radius,
       };
-    case "SET_RADIUS":
-      return { ...state, radius: action.payload };
     case "SET_INDUSTRY":
       return { ...state, industry: action.payload };
     case "RESET":

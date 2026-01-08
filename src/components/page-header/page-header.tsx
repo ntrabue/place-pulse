@@ -3,7 +3,7 @@ import { LocationForm } from "../location-form";
 
 export function PageHeader() {
   return (
-    <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg">
+    <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -17,7 +17,7 @@ export function PageHeader() {
               </p>
             </div>
           </div>
-          <LocationForm />
+          <LocationForm chevron />
         </div>
       </div>
     </div>

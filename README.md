@@ -5,8 +5,8 @@ Find businesses with missing or underperforming websites to target as potential 
 ## Features
 
 - **Search by Location**: Enter city, state, and radius to find nearby businesses
-- **Industry Filter**: 26 pre-filled industries with the option of searching for one with free text.
-- **Multiple View Modes**: View results in Table or Cards format with photos
+- **Industry Filter**: Select from curated high-revenue industries ideal for web service clients
+- **Card View**: Browse results in a clean card format with business photos
 - **Export Functionality**: Download results as CSV or JSON
 - **Business Details**:
   - Name, address, and location coordinates
@@ -75,11 +75,9 @@ Find businesses with missing or underperforming websites to target as potential 
 
 ## Usage
 
-1. Choose an industry from the dropdown (focused on high-revenue businesses like law firms, medical practices, and home services contractors)
-2. Optionally expand "Location Settings" to set your city/state and search radius (defaults to 15 miles)
-3. Click "Search" to find businesses
-4. Switch between Table and Cards view to browse results
-5. Export results as CSV or JSON for outreach campaigns
+1. Set your location by clicking on the location link in the header (or use current location)
+2. Choose an industry from the dropdown (focused on high-revenue businesses like law firms, medical practices, and home services contractors)
+3. Find businesses to help
 
 ## Target Industries
 

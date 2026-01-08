@@ -19,7 +19,15 @@ import { Button } from "../button";
 import { ChevronDown } from "lucide-react";
 import { CurrentLocationToggle } from "../current-location-toggle";
 
-export function LocationForm() {
+type LocationFormProps = {
+  chevron?: boolean;
+  asLink?: boolean;
+};
+
+export function LocationForm({
+  chevron = false,
+  asLink = false,
+}: LocationFormProps) {
   const globalState = useSearchState();
   const dispatch = useSearchDispatch();
 
@@ -72,9 +80,22 @@ export function LocationForm() {
         }}
       />
       <Dialog open={open} onOpenChange={handleOpenChange}>
-        <DialogTrigger className="flex gap-2">
-          {triggerText} <ChevronDown />
-        </DialogTrigger>
+        {asLink ? (
+          <a
+            href="#"
+            onClick={(e) => {
+              e.preventDefault();
+              setOpen(true);
+            }}
+            className="flex gap-2 text-blue-300 underline"
+          >
+            {triggerText} {chevron && <ChevronDown />}
+          </a>
+        ) : (
+          <DialogTrigger className="flex gap-2">
+            {triggerText} {chevron && <ChevronDown />}
+          </DialogTrigger>
+        )}
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Location Settings</DialogTitle>
