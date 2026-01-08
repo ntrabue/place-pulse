@@ -4,6 +4,7 @@ import { Error } from "../error";
 import { PlaceList } from "../place-list";
 import { IndustryPicker } from "../industry-picker";
 import { GetStarted } from "../get-started";
+import { SelectionDrawer } from "../selection-drawer";
 
 export function Content() {
   const { data, error } = useSearchBusinesses();
@@ -12,7 +13,7 @@ export function Content() {
   console.log({ results });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pb-24">
       <PageHeader />
       <IndustryPicker />
       <div className="max-w-7xl mx-auto px-6 py-6">
@@ -20,6 +21,7 @@ export function Content() {
         <PlaceList results={results} />
         <GetStarted />
       </div>
+      <SelectionDrawer />
     </div>
   );
 }

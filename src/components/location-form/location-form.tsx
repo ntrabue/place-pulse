@@ -10,12 +10,12 @@ import {
   DialogHeader,
   DialogFooter,
   DialogTitle,
-} from "../dialog";
+} from "../ui/dialog";
 import { Field } from "../field";
-import { Label } from "../label";
+import { Label } from "../ui/label";
 import { LocationCombobox } from "../location-combobox";
-import { Select } from "../select";
-import { Button } from "../button";
+import { Select } from "../ui/select";
+import { Button } from "../ui/button";
 import { ChevronDown } from "lucide-react";
 import { CurrentLocationToggle } from "../current-location-toggle";
 

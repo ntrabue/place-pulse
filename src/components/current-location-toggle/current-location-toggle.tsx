@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "../button";
+import { Button } from "../ui/button";
 import { LocateFixed, Loader2 } from "lucide-react";
 import { useReverseGeocode } from "../../lib/use-reverse-geocode";
 

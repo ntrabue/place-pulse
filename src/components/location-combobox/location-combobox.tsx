@@ -8,9 +8,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../command";
-import { Popover, PopoverContent, PopoverTrigger } from "../popover";
-import { Button } from "../button";
+} from "../ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Button } from "../ui/button";
 import { ChevronsUpDown, MapPin } from "lucide-react";
 import { useAutocomplete, parseCityState } from "../../lib/use-autocomplete";
 import { useDebounce } from "../../lib/use-debounce";

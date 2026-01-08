@@ -2,8 +2,8 @@
 
 import { useSearchState, useSearchDispatch } from "../../state/place-search-state";
 import { POPULAR_INDUSTRIES } from "../../lib/industries";
-import { Select } from "../select";
-import { Label } from "../label";
+import { Select } from "../ui/select";
+import { Label } from "../ui/label";
 
 export function IndustryPicker() {
   const { industry } = useSearchState();
