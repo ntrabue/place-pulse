@@ -1,4 +1,5 @@
 import { useBusinessSelection } from "../../state/business-selection-context";
+import { useViewStateDispatch } from "../../state/view-state-context";
 import { useState } from "react";
 import {
   ChevronUp,
@@ -7,15 +8,28 @@ import {
   Globe,
   AlertCircle,
   ExternalLink,
+  BarChart3,
 } from "lucide-react";
 import { cn } from "../../lib/utils";
 import { Button } from "../ui/button";
-import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "../ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerFooter,
+} from "../ui/drawer";
 
 export function SelectionDrawer() {
   const { selectedBusinesses, selectionCount, toggleBusiness, clearSelection } =
     useBusinessSelection();
+  const dispatch = useViewStateDispatch();
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleAnalyze = () => {
+    dispatch({ type: "SET_VIEW", payload: "VIEW_ANALYSIS" });
+    setIsOpen(false);
+  };
 
   if (selectionCount === 0) {
     return null;
@@ -46,6 +60,18 @@ export function SelectionDrawer() {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAnalyze();
+              }}
+              className="bg-white text-blue-600 hover:bg-blue-50"
+            >
+              <BarChart3 className="w-4 h-4" />
+              Analyze
+            </Button>
             <ChevronUp
               className={cn(
                 "w-6 h-6 transition-transform",
@@ -130,6 +156,17 @@ export function SelectionDrawer() {
             })}
           </div>
         </div>
+
+        <DrawerFooter className="border-t flex flex-row justify-end gap-2">
+          <Button variant="outline" onClick={() => setIsOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={handleAnalyze}>
+            <BarChart3 className="w-4 h-4 mr-2" />
+            Analyze {selectionCount}{" "}
+            {selectionCount === 1 ? "Business" : "Businesses"}
+          </Button>
+        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
