@@ -9,6 +9,7 @@ import { POPULAR_INDUSTRIES } from "../../lib/constants";
 import { Select } from "../ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 
 const OTHER_VALUE = "__other__";
 
@@ -23,7 +24,7 @@ export function IndustryPicker() {
     if (value === OTHER_VALUE) {
       setIsOtherSelected(true);
       setCustomIndustry("");
-      dispatch({ type: "SET_INDUSTRY", payload: "" });
+      // Don't dispatch yet - wait for user to enter text and click Search
     } else {
       setIsOtherSelected(false);
       setCustomIndustry("");
@@ -32,9 +33,20 @@ export function IndustryPicker() {
   };
 
   const handleCustomInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setCustomIndustry(value);
-    dispatch({ type: "SET_INDUSTRY", payload: value });
+    // Only update local state, don't dispatch to context yet
+    setCustomIndustry(e.target.value);
+  };
+
+  const handleSearchClick = () => {
+    // Dispatch to context when user clicks Search button
+    dispatch({ type: "SET_INDUSTRY", payload: customIndustry });
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow Enter key to trigger search as well
+    if (e.key === "Enter") {
+      handleSearchClick();
+    }
   };
 
   const selectValue = isOtherSelected ? OTHER_VALUE : industry;
@@ -64,13 +76,23 @@ export function IndustryPicker() {
             <option value={OTHER_VALUE}>Other (enter custom industry)</option>
           </Select>
           {isOtherSelected && (
-            <Input
-              type="text"
-              value={customIndustry}
-              onChange={handleCustomInputChange}
-              placeholder="Enter industry name..."
-              className="h-14 max-w-md flex-1 px-4 text-lg"
-            />
+            <>
+              <Input
+                type="text"
+                value={customIndustry}
+                onChange={handleCustomInputChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Enter industry name..."
+                className="h-14 max-w-md flex-1 px-4 text-lg"
+              />
+              <Button
+                onClick={handleSearchClick}
+                disabled={!customIndustry.trim()}
+                className="h-14 px-6 text-lg"
+              >
+                Search
+              </Button>
+            </>
           )}
         </div>
       </div>
