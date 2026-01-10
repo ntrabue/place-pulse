@@ -1,1 +1,1 @@
-export { IndustryPicker } from './industry-picker';
+export { IndustryPicker } from "./industry-picker";

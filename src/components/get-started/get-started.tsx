@@ -8,7 +8,7 @@ export function GetStarted() {
   }
 
   return (
-    <div className="flex items-center justify-center w-full">
+    <div className="flex w-full items-center justify-center">
       <span className="flex items-center p-4">
         {!city || !state || !radius ? (
           <>

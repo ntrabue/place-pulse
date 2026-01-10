@@ -2,7 +2,7 @@
 
 import { Button } from "../ui/button";
 import { LocateFixed, Loader2 } from "lucide-react";
-import { useReverseGeocode } from "../../lib/use-reverse-geocode";
+import { useReverseGeocode } from "../../lib/mutations";
 
 type CurrentLocationToggleProps = {
   onLocationDetected: (location: { city: string; state: string }) => void;

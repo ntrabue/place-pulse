@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import type { Business } from "../types/business";
+import type { Business } from "../../types/business";
 
 type BusinessSelectionContextType = {
   selectedBusinesses: Business[];

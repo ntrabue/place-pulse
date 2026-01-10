@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "../ui/button";
 import { AnalysisScores } from "../analysis-scores";
-import { extractScores } from "../../lib/extract-scores";
+import { extractScores } from "../../lib/utils";
 
 type Props = {
   business: Business;
@@ -34,30 +34,31 @@ export function BusinessAccordionItem({ business, analysis, onRetry }: Props) {
     if (!analysis) return null;
     switch (analysis.status) {
       case "loading":
-        return <Loader2 className="w-4 h-4 animate-spin text-blue-500" />;
-      case "success":
+        return <Loader2 className="h-4 w-4 animate-spin text-blue-500" />;
+      case "success": {
         const { total } = extractScores(analysis.categories);
         return <span className="text-sm font-medium">{total}/400</span>;
+      }
       case "error":
-        return <AlertCircle className="w-4 h-4 text-destructive" />;
+        return <AlertCircle className="h-4 w-4 text-destructive" />;
       case "no-website":
         return <span className="text-xs text-destructive">0/400</span>;
     }
   };
 
   return (
-    <AccordionItem value={business.placeId} className="border rounded-lg px-4">
+    <AccordionItem value={business.placeId} className="rounded-lg border px-4">
       <AccordionTrigger className="hover:no-underline">
-        <div className="flex items-center justify-between w-full pr-4">
-          <div className="flex-1 min-w-0 text-left space-y-1">
-            <div className="font-medium text-sm truncate">{business.name}</div>
+        <div className="flex w-full items-center justify-between pr-4">
+          <div className="min-w-0 flex-1 space-y-1 text-left">
+            <div className="truncate text-sm font-medium">{business.name}</div>
             {primaryType && (
-              <div className="text-xs text-blue-700 font-medium">
+              <div className="text-xs font-medium text-blue-700">
                 {primaryType}
               </div>
             )}
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
-              <MapPin className="w-3 h-3 shrink-0" />
+              <MapPin className="h-3 w-3 shrink-0" />
               <span className="truncate">{business.address}</span>
             </div>
             {business.website ? (
@@ -65,38 +66,38 @@ export function BusinessAccordionItem({ business, analysis, onRetry }: Props) {
                 href={business.website}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs text-blue-600 hover:underline w-fit"
+                className="flex w-fit items-center gap-1 text-xs text-blue-600 hover:underline"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Globe className="w-3 h-3 shrink-0" />
+                <Globe className="h-3 w-3 shrink-0" />
                 <span className="truncate">{business.website}</span>
-                <ExternalLink className="w-3 h-3 shrink-0" />
+                <ExternalLink className="h-3 w-3 shrink-0" />
               </a>
             ) : (
               <div className="flex items-center gap-1 text-xs text-destructive">
-                <AlertCircle className="w-3 h-3 shrink-0" />
+                <AlertCircle className="h-3 w-3 shrink-0" />
                 <span>No website</span>
               </div>
             )}
           </div>
-          <div className="shrink-0 ml-4">{getStatusIndicator()}</div>
+          <div className="ml-4 shrink-0">{getStatusIndicator()}</div>
         </div>
       </AccordionTrigger>
       <AccordionContent>
         {analysis?.status === "loading" && (
           <div className="flex items-center gap-2 py-4 text-muted-foreground">
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="h-4 w-4 animate-spin" />
             <span>Analyzing website performance...</span>
           </div>
         )}
         {analysis?.status === "error" && (
           <div className="flex items-center justify-between py-4">
             <div className="flex items-center gap-2 text-destructive">
-              <AlertCircle className="w-4 h-4" />
+              <AlertCircle className="h-4 w-4" />
               <span>{analysis.error || "Failed to analyze"}</span>
             </div>
             <Button variant="outline" size="sm" onClick={onRetry}>
-              <RefreshCw className="w-4 h-4 mr-2" />
+              <RefreshCw className="mr-2 h-4 w-4" />
               Retry
             </Button>
           </div>
@@ -104,7 +105,7 @@ export function BusinessAccordionItem({ business, analysis, onRetry }: Props) {
         {analysis?.status === "no-website" && (
           <div className="py-4 text-muted-foreground">
             <p>This business does not have a website to analyze.</p>
-            <p className="text-sm mt-1">
+            <p className="mt-1 text-sm">
               Score: 0/400 (highest need for web presence)
             </p>
           </div>

@@ -9,13 +9,13 @@ export type GooglePlacesSuggestion = {
   // Legacy fields for backwards compatibility
   description?: string;
   place_id?: string;
-}
+};
 
 export type GooglePlacesAutocompleteResponse = {
   suggestions?: GooglePlacesSuggestion[];
   // Legacy format
   predictions?: GooglePlacesSuggestion[];
-}
+};
 
 // Normalized type used throughout the app
 export type PlacePrediction = {
@@ -25,4 +25,4 @@ export type PlacePrediction = {
     text?: { text?: string };
     placeId?: string;
   };
-}
+};

@@ -1,1 +1,1 @@
-export { CurrentLocationToggle } from './current-location-toggle'
+export { CurrentLocationToggle } from "./current-location-toggle";

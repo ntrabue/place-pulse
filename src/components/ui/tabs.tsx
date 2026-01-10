@@ -9,7 +9,7 @@ const TabsContext = React.createContext<{
 type TabsProps = React.HTMLAttributes<HTMLDivElement> & {
   value: string;
   onValueChange: (value: string) => void;
-}
+};
 
 const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
   ({ value, onValueChange, className, ...props }, ref) => {
@@ -39,7 +39,7 @@ TabsList.displayName = "TabsList";
 
 type TabsTriggerProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   value: string;
-}
+};
 
 const TabsTrigger = React.forwardRef<HTMLButtonElement, TabsTriggerProps>(
   ({ className, value, ...props }, ref) => {
@@ -65,7 +65,7 @@ TabsTrigger.displayName = "TabsTrigger";
 
 type TabsContentProps = React.HTMLAttributes<HTMLDivElement> & {
   value: string;
-}
+};
 
 const TabsContent = React.forwardRef<HTMLDivElement, TabsContentProps>(
   ({ className, value, ...props }, ref) => {

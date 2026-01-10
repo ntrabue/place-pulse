@@ -11,7 +11,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../ui/tooltip";
-import { extractScores } from "../../lib/extract-scores";
+import { extractScores } from "../../lib/utils";
 
 type Props = {
   coreWebVitals: CoreWebVitals | null;
@@ -30,13 +30,13 @@ function ScoreCircle({ score, label }: { score: number; label: string }) {
   return (
     <div className="flex flex-col items-center gap-1">
       <div
-        className={`w-16 h-16 rounded-full border-4 flex items-center justify-center font-bold text-lg ${getColor(
+        className={`flex h-16 w-16 items-center justify-center rounded-full border-4 text-lg font-bold ${getColor(
           score
         )}`}
       >
         {score}
       </div>
-      <span className="text-xs text-muted-foreground text-center">{label}</span>
+      <span className="text-center text-xs text-muted-foreground">{label}</span>
     </div>
   );
 }
@@ -49,10 +49,10 @@ export function AnalysisScores({
   const { performance, accessibility, bestPractices, seo } =
     extractScores(categories);
   return (
-    <div className="py-4 space-y-6">
+    <div className="space-y-6 py-4">
       <div>
-        <h4 className="text-sm font-semibold mb-3">Lighthouse Scores</h4>
-        <div className="flex gap-6 flex-wrap">
+        <h4 className="mb-3 text-sm font-semibold">Lighthouse Scores</h4>
+        <div className="flex flex-wrap gap-6">
           <ScoreCircle score={performance} label="Performance" />
           <ScoreCircle score={accessibility} label="Accessibility" />
           <ScoreCircle score={bestPractices} label="Best Practices" />
@@ -62,7 +62,7 @@ export function AnalysisScores({
 
       {screenshot && (
         <div>
-          <h4 className="text-sm font-semibold mb-3">Screenshot</h4>
+          <h4 className="mb-3 text-sm font-semibold">Screenshot</h4>
           <img
             src={screenshot.data}
             alt="Website screenshot"
@@ -75,13 +75,13 @@ export function AnalysisScores({
       {coreWebVitals && (
         <TooltipProvider>
           <div>
-            <h4 className="text-sm font-semibold mb-3">Core Web Vitals</h4>
+            <h4 className="mb-3 text-sm font-semibold">Core Web Vitals</h4>
             <div className="grid grid-cols-3 gap-4 text-sm">
               <div>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="text-muted-foreground cursor-help inline-flex items-center gap-1">
-                      LCP <Info className="w-3 h-3" />
+                    <span className="inline-flex cursor-help items-center gap-1 text-muted-foreground">
+                      LCP <Info className="h-3 w-3" />
                     </span>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
@@ -102,8 +102,8 @@ export function AnalysisScores({
               <div>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="text-muted-foreground cursor-help inline-flex items-center gap-1">
-                      INP <Info className="w-3 h-3" />
+                    <span className="inline-flex cursor-help items-center gap-1 text-muted-foreground">
+                      INP <Info className="h-3 w-3" />
                     </span>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">
@@ -124,8 +124,8 @@ export function AnalysisScores({
               <div>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <span className="text-muted-foreground cursor-help inline-flex items-center gap-1">
-                      CLS <Info className="w-3 h-3" />
+                    <span className="inline-flex cursor-help items-center gap-1 text-muted-foreground">
+                      CLS <Info className="h-3 w-3" />
                     </span>
                   </TooltipTrigger>
                   <TooltipContent className="max-w-xs">

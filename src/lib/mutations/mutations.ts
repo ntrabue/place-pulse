@@ -1,5 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 
+// ============================================================================
+// Reverse Geocode
+// ============================================================================
+
 type ReverseGeocodeResponse = {
   results: Array<{
     address_components: Array<{
@@ -10,7 +14,10 @@ type ReverseGeocodeResponse = {
   }>;
 };
 
-async function reverseGeocode(coords: { lat: number; lng: number }): Promise<{ city: string; state: string }> {
+async function reverseGeocode(coords: {
+  lat: number;
+  lng: number;
+}): Promise<{ city: string; state: string }> {
   const response = await fetch(
     `/api/reverse-geocode?lat=${coords.lat}&lng=${coords.lng}`
   );

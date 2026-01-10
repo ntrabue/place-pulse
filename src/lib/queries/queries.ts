@@ -1,8 +1,85 @@
-import { useQueries, useQueryClient } from "@tanstack/react-query";
-import type { Business } from "../types/business";
-import type { AnalysisResult } from "../types/analysis";
-import { analyzeWebsite } from "../services/pageSpeedApi";
-import { extractScores } from "./extract-scores";
+import { useQuery, useQueries, useQueryClient } from "@tanstack/react-query";
+import type {
+  GooglePlacesAutocompleteResponse,
+  GooglePlacesSuggestion,
+  PlacePrediction,
+} from "../../types";
+import type { Business } from "../../types/business";
+import type { AnalysisResult } from "../../types/analysis";
+import { searchBusinesses } from "../../services/placesApi";
+import { analyzeWebsite } from "../../services/pageSpeedApi";
+import { useSearchState } from "../../state/place-search-state";
+import { extractScores, parseCityState } from "../utils";
+
+// Re-export for backwards compatibility
+export { parseCityState };
+
+async function fetchAutocomplete(input: string): Promise<PlacePrediction[]> {
+  const response = await fetch(
+    `/api/autocomplete?input=${encodeURIComponent(input)}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch autocomplete suggestions");
+  }
+
+  const data: GooglePlacesAutocompleteResponse = await response.json();
+
+  if (data.suggestions) {
+    return data.suggestions.map((suggestion: GooglePlacesSuggestion) => ({
+      description:
+        suggestion.placePrediction?.text?.text || suggestion.description || "",
+      place_id:
+        suggestion.placePrediction?.placeId || suggestion.place_id || "",
+      placePrediction: suggestion.placePrediction,
+    }));
+  } else if (data.predictions) {
+    return data.predictions.map((prediction: GooglePlacesSuggestion) => ({
+      description: prediction.description || "",
+      place_id: prediction.place_id || "",
+      placePrediction: prediction.placePrediction,
+    }));
+  }
+
+  return [];
+}
+
+export function useAutocomplete(input: string) {
+  return useQuery({
+    queryKey: ["autocomplete", input],
+    queryFn: () => fetchAutocomplete(input),
+    enabled: input.length >= 2,
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+// ============================================================================
+// Search Businesses
+// ============================================================================
+
+export function useSearchBusinesses() {
+  const params = useSearchState();
+
+  const isEnabled = Boolean(
+    params.city && params.state && params.radius && params.industry
+  );
+
+  return useQuery({
+    queryKey: [
+      "businesses",
+      params.city,
+      params.state,
+      params.radius,
+      params.industry,
+    ],
+    queryFn: () => searchBusinesses(params),
+    enabled: isEnabled,
+  });
+}
+
+// ============================================================================
+// Business Analysis
+// ============================================================================
 
 export function useBusinessAnalysis(businesses: Business[], enabled: boolean) {
   const queryClient = useQueryClient();
@@ -82,13 +159,11 @@ export function useBusinessAnalysis(businesses: Business[], enabled: boolean) {
     const analysisA = analysisMap.get(a.placeId);
     const analysisB = analysisMap.get(b.placeId);
 
-    // Loading items go to top
     if (analysisA?.status === "loading" && analysisB?.status !== "loading")
       return -1;
     if (analysisB?.status === "loading" && analysisA?.status !== "loading")
       return 1;
 
-    // Calculate score sums (0 for no-website, errors, or loading)
     const scoreA = extractScores(analysisA?.categories);
     const scoreB = extractScores(analysisB?.categories);
 

@@ -5,7 +5,7 @@ import {
   useContext,
   useReducer,
 } from "react";
-import type { ViewState } from "../types/analysis";
+import type { ViewState } from "../../types/analysis";
 
 type ViewStateAction =
   | { type: "SET_VIEW"; payload: ViewState }

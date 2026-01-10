@@ -1,16 +1,16 @@
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
 
 export function validateApiKey(): string | NextResponse {
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
 
   if (!apiKey) {
     return NextResponse.json(
-      { error: 'API key not configured' },
+      { error: "API key not configured" },
       { status: 500 }
-    )
+    );
   }
 
-  return apiKey
+  return apiKey;
 }
 
 export function validateParams(
@@ -21,28 +21,25 @@ export function validateParams(
       return NextResponse.json(
         { error: `${key} parameter is required` },
         { status: 400 }
-      )
+      );
     }
   }
-  return null
+  return null;
 }
 
 export function createPlacesHeaders(apiKey: string, fieldMask?: string) {
   const headers: HeadersInit = {
-    'X-Goog-Api-Key': apiKey
-  }
+    "X-Goog-Api-Key": apiKey,
+  };
 
   if (fieldMask) {
-    headers['X-Goog-FieldMask'] = fieldMask
+    headers["X-Goog-FieldMask"] = fieldMask;
   }
 
-  return headers
+  return headers;
 }
 
 export function handleApiError(error: unknown, message: string) {
-  console.error(`${message}:`, error)
-  return NextResponse.json(
-    { error: message },
-    { status: 500 }
-  )
+  console.error(`${message}:`, error);
+  return NextResponse.json({ error: message }, { status: 500 });
 }

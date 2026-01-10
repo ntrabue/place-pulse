@@ -12,21 +12,26 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { ChevronsUpDown, MapPin } from "lucide-react";
-import { useAutocomplete, parseCityState } from "../../lib/use-autocomplete";
-import { useDebounce } from "../../lib/use-debounce";
+import { useAutocomplete, parseCityState } from "../../lib/queries";
+import { useDebounce } from "../../lib/hooks";
 import { CurrentLocationToggle } from "../current-location-toggle";
 
 type LocationComboboxProps = {
   value: { city: string; state: string };
   onChange: (location: { city: string; state: string }) => void;
   autoFocus?: boolean;
-}
+};
 
-export function LocationCombobox({ value, onChange, autoFocus }: LocationComboboxProps) {
+export function LocationCombobox({
+  value,
+  onChange,
+  autoFocus,
+}: LocationComboboxProps) {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const displayValue = value.city && value.state ? `${value.city}, ${value.state}` : "";
+  const displayValue =
+    value.city && value.state ? `${value.city}, ${value.state}` : "";
 
   useEffect(() => {
     if (autoFocus) {
@@ -70,9 +75,7 @@ export function LocationCombobox({ value, onChange, autoFocus }: LocationCombobo
           aria-expanded={open}
           className="w-full justify-between font-normal focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
-          <span className="truncate">
-            {displayValue || "Select location"}
-          </span>
+          <span className="truncate">{displayValue || "Select location"}</span>
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

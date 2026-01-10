@@ -1,16 +1,17 @@
-import type { Metadata } from "next"
-import "../src/index.css"
-import { QueryProvider } from "../src/lib/query-provider"
+import type { Metadata } from "next";
+import "../src/index.css";
+import { QueryProvider } from "../src/state/query-provider";
 
 export const metadata: Metadata = {
   title: "Place Pulse - Find Businesses Without Websites",
-  description: "Find businesses without websites in your area using Google Places API",
-}
+  description:
+    "Find businesses without websites in your area using Google Places API",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -18,5 +19,5 @@ export default function RootLayout({
         <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
-  )
+  );
 }

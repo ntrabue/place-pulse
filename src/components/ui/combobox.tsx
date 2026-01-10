@@ -17,7 +17,7 @@ import { cn } from "../../lib/utils";
 export type ComboboxOption = {
   value: string;
   label: string;
-}
+};
 
 type ComboboxProps = {
   options: ComboboxOption[];
@@ -27,7 +27,7 @@ type ComboboxProps = {
   searchPlaceholder?: string;
   emptyText?: string;
   className?: string;
-}
+};
 
 export function Combobox({
   options,

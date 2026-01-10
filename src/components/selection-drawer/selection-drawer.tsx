@@ -39,12 +39,12 @@ export function SelectionDrawer() {
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
       {/* Footer bar - trigger for drawer */}
       <div
-        className="fixed bottom-0 left-0 right-0 z-50 bg-blue-600 text-white p-4 cursor-pointer hover:bg-blue-700 transition-colors"
+        className="fixed bottom-0 left-0 right-0 z-50 cursor-pointer bg-blue-600 p-4 text-white transition-colors hover:bg-blue-700"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-white text-blue-600 flex items-center justify-center font-bold text-sm">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-sm font-bold text-blue-600">
               {selectionCount}
             </div>
             <div>
@@ -69,12 +69,12 @@ export function SelectionDrawer() {
               }}
               className="bg-white text-blue-600 hover:bg-blue-50"
             >
-              <BarChart3 className="w-4 h-4" />
+              <BarChart3 className="h-4 w-4" />
               Analyze
             </Button>
             <ChevronUp
               className={cn(
-                "w-6 h-6 transition-transform",
+                "h-6 w-6 transition-transform",
                 isOpen && "rotate-180"
               )}
             />
@@ -106,21 +106,21 @@ export function SelectionDrawer() {
               return (
                 <div
                   key={business.placeId}
-                  className="flex items-start justify-between p-3 bg-blue-50 rounded-lg border border-blue-200 gap-3"
+                  className="flex items-start justify-between gap-3 rounded-lg border border-blue-200 bg-blue-50 p-3"
                 >
-                  <div className="flex-1 min-w-0 space-y-1.5">
-                    <div className="font-medium text-sm truncate">
+                  <div className="min-w-0 flex-1 space-y-1.5">
+                    <div className="truncate text-sm font-medium">
                       {business.name}
                     </div>
 
                     {primaryType && (
-                      <div className="text-xs text-blue-700 font-medium">
+                      <div className="text-xs font-medium text-blue-700">
                         {primaryType}
                       </div>
                     )}
 
                     <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                      <MapPin className="w-3 h-3 shrink-0" />
+                      <MapPin className="h-3 w-3 shrink-0" />
                       <span className="truncate">{business.address}</span>
                     </div>
 
@@ -129,16 +129,16 @@ export function SelectionDrawer() {
                         href={business.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-blue-600 hover:underline w-fit"
+                        className="flex w-fit items-center gap-1 text-xs text-blue-600 hover:underline"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <Globe className="w-3 h-3 shrink-0" />
+                        <Globe className="h-3 w-3 shrink-0" />
                         <span className="truncate">{business.website}</span>
-                        <ExternalLink className="w-3 h-3 shrink-0" />
+                        <ExternalLink className="h-3 w-3 shrink-0" />
                       </a>
                     ) : (
                       <div className="flex items-center gap-1 text-xs text-destructive">
-                        <AlertCircle className="w-3 h-3 shrink-0" />
+                        <AlertCircle className="h-3 w-3 shrink-0" />
                         <span>No website</span>
                       </div>
                     )}
@@ -147,9 +147,9 @@ export function SelectionDrawer() {
                     variant="ghost"
                     size="sm"
                     onClick={() => toggleBusiness(business)}
-                    className="shrink-0 h-8 w-8 p-0"
+                    className="h-8 w-8 shrink-0 p-0"
                   >
-                    <X className="w-4 h-4" />
+                    <X className="h-4 w-4" />
                   </Button>
                 </div>
               );
@@ -157,12 +157,12 @@ export function SelectionDrawer() {
           </div>
         </div>
 
-        <DrawerFooter className="border-t flex flex-row justify-end gap-2">
+        <DrawerFooter className="flex flex-row justify-end gap-2 border-t">
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             Cancel
           </Button>
           <Button onClick={handleAnalyze}>
-            <BarChart3 className="w-4 h-4 mr-2" />
+            <BarChart3 className="mr-2 h-4 w-4" />
             Analyze {selectionCount}{" "}
             {selectionCount === 1 ? "Business" : "Businesses"}
           </Button>

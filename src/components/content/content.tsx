@@ -1,4 +1,4 @@
-import { useSearchBusinesses } from "../../lib/use-search-businesses";
+import { useSearchBusinesses } from "../../lib/queries";
 import { useViewState } from "../../state/view-state-context";
 import { PageHeader } from "../page-header";
 import { Error } from "../error";
@@ -27,7 +27,7 @@ export function Content() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 pb-24">
       <PageHeader />
       <IndustryPicker />
-      <div className="max-w-7xl mx-auto px-6 py-6">
+      <div className="mx-auto max-w-7xl px-6 py-6">
         <Error error={error} />
         <PlaceList results={results} />
         <GetStarted />
