@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   useSearchState,
   useSearchDispatch,
@@ -17,18 +17,6 @@ export function IndustryPicker() {
   const dispatch = useSearchDispatch();
   const [isOtherSelected, setIsOtherSelected] = useState(false);
   const [customIndustry, setCustomIndustry] = useState("");
-
-  // Check if the current industry is a predefined one
-  useEffect(() => {
-    const isPredefined = POPULAR_INDUSTRIES.some((ind) => ind.value === industry);
-    if (!isPredefined && industry !== "") {
-      setIsOtherSelected(true);
-      setCustomIndustry(industry);
-    } else {
-      setIsOtherSelected(false);
-      setCustomIndustry("");
-    }
-  }, [industry]);
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
