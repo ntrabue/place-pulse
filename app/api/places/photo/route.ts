@@ -9,7 +9,7 @@ import {
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const photoName = searchParams.get("photoName");
-  const maxWidth = searchParams.get("maxWidth") || "400";
+  const maxWidth = searchParams.get("maxWidth") || "200";
 
   const paramError = validateParams({ photoName });
   if (paramError) return paramError;

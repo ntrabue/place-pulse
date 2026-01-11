@@ -1,19 +1,22 @@
 # Place Pulse
 
-Find businesses with missing or underperforming websites to target as potential web service clients.
+There are businesses in your community who need new websites. Place Pulse aims to help you identify businesses without websites or slow/underperforming websites so that you can help those businesses.
+
+![Place Pulse Demo](assets/demo.gif)
 
 ## Features
 
 - **Search by Location**: Enter city, state, and radius to find nearby businesses
 - **Industry Filter**: Select from curated high-revenue industries ideal for web service clients
 - **Card View**: Browse results in a clean card format with business photos
-- **Export Functionality**: Download results as CSV or JSON
 - **Business Details**:
-  - Name, address, and location coordinates
+  - Name, address
   - Phone numbers and websites
   - Ratings and review counts
-  - Photos and opening hours
-  - Business status
+  - Photos
+- **Batch Page Speed Analysis**:
+  - Businesses are sorted by aggregate page speed scores
+  - Lighthouse report (many improvements to be made here)
 - **Secure API**: Server-side API routes keep your Google API key secure
 
 ## Tech Stack
@@ -93,10 +96,9 @@ The app focuses on high-revenue service businesses that are ideal clients for we
 ## Future Enhancements
 
 - Map view with Mapbox integration
-- Website analysis (responsive, performance, Facebook links)
 - Filter by businesses without websites
-- Save search history
-- Batch processing for multiple locations
+- Filter out chains/big-boxes (Lowes probably doesn't need a new website)
+- Save search history (Place API can get expensive)
 
 ## License
 

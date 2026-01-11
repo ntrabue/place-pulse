@@ -4,7 +4,7 @@ import type {
   CoreWebVitals,
   Screenshot,
 } from "../../types/analysis";
-import { Check, X, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
@@ -41,24 +41,30 @@ function ScoreCircle({ score, label }: { score: number; label: string }) {
   );
 }
 
+function Scores({ categories }: { categories: Category | null }) {
+  const { performance, accessibility, bestPractices, seo } =
+    extractScores(categories);
+  return (
+    <>
+      <h4 className="mb-3 text-sm font-semibold">Lighthouse Scores</h4>
+      <div className="flex flex-wrap gap-6">
+        <ScoreCircle score={performance} label="Performance" />
+        <ScoreCircle score={accessibility} label="Accessibility" />
+        <ScoreCircle score={bestPractices} label="Best Practices" />
+        <ScoreCircle score={seo} label="SEO" />
+      </div>
+    </>
+  );
+}
+
 export function AnalysisScores({
   categories,
   coreWebVitals,
   screenshot,
 }: Props) {
-  const { performance, accessibility, bestPractices, seo } =
-    extractScores(categories);
   return (
     <div className="space-y-6 py-4">
-      <div>
-        <h4 className="mb-3 text-sm font-semibold">Lighthouse Scores</h4>
-        <div className="flex flex-wrap gap-6">
-          <ScoreCircle score={performance} label="Performance" />
-          <ScoreCircle score={accessibility} label="Accessibility" />
-          <ScoreCircle score={bestPractices} label="Best Practices" />
-          <ScoreCircle score={seo} label="SEO" />
-        </div>
-      </div>
+      <Scores categories={categories} />
 
       {screenshot && (
         <div>
