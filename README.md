@@ -1,6 +1,6 @@
 # Place Pulse
 
-There are businesses in your community who need new websites. Place Pulse aims to help you identify businesses without websites or slow/underperforming websites so that you can help those businesses.
+Find local businesses with missing or slow websites. Perfect for freelancers and agencies hunting for web development leads.
 
 ![Place Pulse Demo](assets/demo.gif)
 
